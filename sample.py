@@ -1,3 +1,5 @@
+#it reads the file. form word frequency relation.
+
 import re
 import string
 
