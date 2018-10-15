@@ -2,10 +2,6 @@ import re
 import numpy as np
 from collections import defaultdict
 import string
-import sklearn.naive_bayes import MultinomailNB
-
-#naive bayes classifier:
-#nb_pipeline = Pipeline(['NBCV' , FeatureSelection.countV]), ('nb_clf', MultinomailNB())
 
 def preprocess_string(str_arg):
     cleaned_str = re.sub('[^a-z\s]' , '  ', str_arg, flags=re.IGNORECASE)#every char except alphabet is replaced
@@ -61,6 +57,33 @@ class NaiveBayes:
             self.vocab_length = self.vocab.shape[0]
 
             denoms = np.array([cat_word_counts[cat_index] + self.vocab_length+1 for cat_index,cat in enumerate(self.classes)])
+
+            self.cats_info = [(self.bow_dicts[cat_index], prob_classes[cat_index], denoms[cat_index]) for cat_index, cat in enumerate(self.classes)]
+
+    def getExampleProb(selfself,test_example):
+        likelihood_prob = np.zeros(self.classes.shape[0])
+        for cat_index, cat in enumerate(self.classes):
+
+            for test_token in test_example.split():
+
+                test_token_counts = self.cats_info[cat_index][0].get(test_token)+1
+                test_token_prob = test_token_counts/float(self.cats_info[cat_index][2])
+                likelihood_prob[cat_index] += np.log(test_token_prob)
+
+            post_prob = np.empty(self.classes.shape[0])
+            for cat_index, cat in enumerate(self.classes):
+                post_prob[cat_index] = likelihood_prob[cat_index]+np.log(self.cats_info[cat_index][1])
+
+            return post_prob
+
+def test(self,test_set):
+    predictions = []
+    for example in test_set:
+        cleaned_example = preprocess_string(example)
+        post_prob = self.getExampleProb(cleaned_example)
+        predictions.append(self.classes[np.argmax(post_prob)])
+
+    return np.array(predictions)
 
 
 
