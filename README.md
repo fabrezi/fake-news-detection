@@ -1,1 +1,1 @@
-Implementation to detect fake news in tweets
+Implementation to detect fake news through Bayesian Inference
