@@ -2,7 +2,7 @@
 #features: words
 import re
 import numpy as np
-import panda as pd
+import pandas as pd
 from collections import defaultdict
 
 def preprocess_string(str_arg):
