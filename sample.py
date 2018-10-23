@@ -1,3 +1,7 @@
+#Upload xlrs file
+#tokenize--word count
+#stop words + -punct (implementation)
+
 import re
 import string
 import pandas as pd
