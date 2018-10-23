@@ -1,5 +1,3 @@
-import re
-import string
 import pandas as pd
 
 stop_words = [
@@ -31,4 +29,5 @@ stop_words = [
 frequency = {}
 news = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\Tester.xlsx')
 pd.set_option('display.max_colwidth', 1000)
-print(news)
+series = df.Text.str.split(expand=True).stack().value_counts()
+print(series)
