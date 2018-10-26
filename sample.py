@@ -26,11 +26,13 @@ stop_words = [
 "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves"
 ]
 
-frequency = {}
-news = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\Tester.xlsx')
+
+df = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\Tester.xlsx')
 pd.set_option('display.max_colwidth', 1000)
-series = df.Text.str.split(expand=True).stack().value_counts()
-print(series)
+frequency = df.Text.str.split(expand=True).stack().value_counts()
+T = 450
+word_freq = frequency/T
+print(word_freq)
 
 
 #with open('file_name', 'r') as f:
