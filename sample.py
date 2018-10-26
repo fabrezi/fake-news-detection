@@ -31,3 +31,10 @@ news = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\Tester.xlsx')
 pd.set_option('display.max_colwidth', 1000)
 series = df.Text.str.split(expand=True).stack().value_counts()
 print(series)
+
+
+#with open('file_name', 'r') as f:
+ #for line in f:
+  # for word in line.split()
+   #   print(word)
+
