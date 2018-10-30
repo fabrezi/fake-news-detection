@@ -1,5 +1,3 @@
-#stop words
-#punct
 import pandas as pd
 import re
 import string
