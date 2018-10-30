@@ -2,6 +2,7 @@
 #punct
 import pandas as pd
 import re
+import string
 
 ####################################################################
 #remaining parts:
@@ -38,7 +39,7 @@ stop_words = [
 "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves"
 ]
 
-exclude = list(string.punctuation) + stop_words
+exclude = list(string.punctuation) + stop_words + []
 remove = re.compile('[%s]' % string.punctuation)
 
 df = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\class\\CS6045\\acm_project\\train_fake_news.xlsx')
@@ -48,21 +49,20 @@ f = []
 for i, s in enumerate(df['Text']):
     s = s.lower()
     no_nums = re.sub(r'[0-9]+' , ' ', s)
-    o = remove.s
+    o = remove.sub('', no_nums)
+    line = o.split()
+    common = list(set(line).intersection(exclude))
+    line = ' '.join(word for word in line if word in common)
+    f.append(line)
+
+ndf = pd.DataFrame({'Text': f})
 frequency = df.Text.str.split(expand=True).stack().value_counts()# counter
-text_string= df.Text().lower()
-match_pattern = re.findall(r'\b[a-z]{4,15}\b', text_string)
-
-for word in match_pattern:
-    if word.isin(stop_words):
-        word_freq = 0
-
-
 T = 4000000 #microsoft word count ~
 word_freq = frequency/T #frequency of the word occurrence in the document
 
-print("word                     P(w)")
-print(word_freq)
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+ print("word                     P(w)")
+ print(word_freq)
 
 
 
