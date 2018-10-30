@@ -1,4 +1,16 @@
+#stop words
+#punct
 import pandas as pd
+import re
+
+####################################################################
+#remaining parts:
+#1. implement stop words, puntctuation
+#2. bayesian theorem math model/ classifier
+#3. train? fuwk
+#4. raw output
+# number of words ~ 4000000
+####################################################################
 
 stop_words = [
 "a", "about", "above", "across", "after", "afterwards",
@@ -26,13 +38,33 @@ stop_words = [
 "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves"
 ]
 
+exclude = list(string.punctuation) + stop_words
+remove = re.compile('[%s]' % string.punctuation)
 
-df = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\Tester.xlsx')
-pd.set_option('display.max_colwidth', 1000)
-frequency = df.Text.str.split(expand=True).stack().value_counts()
-T = 450
-word_freq = frequency/T
+df = pd.read_excel('C:\\Users\\farid-PC\\Desktop\\class\\CS6045\\acm_project\\train_fake_news.xlsx')
+pd.set_option('display.max_colwidth', 1000)#untruncate the unseen text
+
+f = []
+for i, s in enumerate(df['Text']):
+    s = s.lower()
+    no_nums = re.sub(r'[0-9]+' , ' ', s)
+    o = remove.s
+frequency = df.Text.str.split(expand=True).stack().value_counts()# counter
+text_string= df.Text().lower()
+match_pattern = re.findall(r'\b[a-z]{4,15}\b', text_string)
+
+for word in match_pattern:
+    if word.isin(stop_words):
+        word_freq = 0
+
+
+T = 4000000 #microsoft word count ~
+word_freq = frequency/T #frequency of the word occurrence in the document
+
+print("word                     P(w)")
 print(word_freq)
+
+
 
 
 #with open('file_name', 'r') as f:
